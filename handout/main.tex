@@ -51,7 +51,7 @@
 Moderne Programme kommen mit inhärenter Komplexität einher. Es bestehen Abhängigkeiten zwischen Bibliotheken, Modulen und externem Code \cite{khareUnderstandingEffectivenessLarge2024}. Dadurch herrscht ein hoher Bedarf an zuverlässigen Tools, um einen hohen Qualitätsstandard zu gewährleisten.
 
 \acp{llm} haben in den letzten Jahren Fortschritte in Aufgabenbereichen wie Program-Repair \cite{xiaAutomatedProgramRepair2023} und Code/Test-Generierung \cite{lemieuxCodaMosaEscapingCoverage2023} erreicht. Auch die statische Programmanalyse kann davon profitieren. Die gezielte Integration von \acp{llm} in den Workflow der statischen Analyse ermöglicht es, die jeweiligen Stärken komplementär zu nutzen \cite{liEnhancingStaticAnalysis2024}\cite{wagnerEffectiveComplementarySecurity2025}.
-Die Fähigkeit von \acp{llm}, ein intuitives und menschenähnliches Verständnis von Code zu zeigen, stellt eine Abgrenzung und Ergänzung zu den formalen, regelbasierten Ansätzen dar, welche die traditionelle statische Analyse charakterisieren\cite{liEnhancingStaticAnalysis2024}.
+Die Fähigkeit von \acp{llm}, ein intuitives und menschenähnliches Verständnis von Code zu zeigen, stellt eine Abgrenzung und Ergänzung zu den formalen, regelbasierten Ansätzen dar, welche die traditionelle statische Analyse charakterisieren \cite{liEnhancingStaticAnalysis2024}.
 
 
 
@@ -60,16 +60,16 @@ Die Fähigkeit von \acp{llm}, ein intuitives und menschenähnliches Verständnis
 
 \section{Potenziale und Ziele}\label{sec:potent}
 
-Die Integration von \acp{llm} in die statische Programmanalyse hat das Potenzial, die Schwächen der traditionellen Ansätze zu reduzieren. Der Fokus liegt hierbei nicht auf der Ersetzung bestehender Verfahren, sondern deren Effektivität durch die Kombination mit \acp{llm} zu steigern\cite{khareUnderstandingEffectivenessLarge2024}. Kernbereiche dieser Unterstützung umfassen die direkte Verbesserung der Analyseergebnisse sowie der Kompensation von Wissensdefiziten konventioneller Werkzeuge.
+Die Integration von \acp{llm} in die statische Programmanalyse hat das Potenzial, die Schwächen der traditionellen Ansätze zu reduzieren. Der Fokus liegt hierbei nicht auf der Ersetzung bestehender Verfahren, sondern deren Effektivität durch die Kombination mit \acp{llm} zu steigern \cite{khareUnderstandingEffectivenessLarge2024}. Kernbereiche dieser Unterstützung umfassen die direkte Verbesserung der Analyseergebnisse sowie der Kompensation von Wissensdefiziten konventioneller Werkzeuge.
 
 \subsection{Verbesserung der Analyseergebnisse}
 
-Die Ausgabe statischer Analysewerkzeuge neigt dazu, eine hohe Rate an \acfp{fp} zu generieren. Das ist ein großes Problem. Jedes \ac{fp} erfordert eine manuelle Überprüfung und Bindung von Entwicklungsressourcen. Zudem sinkt das Vertrauen in die Werkzeuge durch eine niedrige Precision\cite{wagnerEffectiveComplementarySecurity2025}.
+Die Ausgabe statischer Analysewerkzeuge neigt dazu, eine hohe Rate an \acfp{fp} zu generieren. Das ist ein großes Problem. Jedes \ac{fp} erfordert eine manuelle Überprüfung und Bindung von Entwicklungsressourcen. Zudem sinkt das Vertrauen in die Werkzeuge durch eine niedrige Precision \cite{wagnerEffectiveComplementarySecurity2025}.
 
 Der gezielte Einsatz von \acp{llm} kann die Rate an \ac{fp} die die Entwickler erreicht reduzieren\cite{wagnerEffectiveComplementarySecurity2025}. Auch die Identifikation komplett neuer Probleme bei denen traditionelle Tools an ihre Grenzen stoßen ist möglich. In großen Codebasen müssen konventionelle Tools einen Trade-Off zwischen Skalierbarkeit und Präzision eingehen.
 
 \begin{itemize}
-    \item Präzise Analyse: Konzepte wie path-sensitive Analyse bringen eine hohe Präzision, scheitern aber in komplexen Programmen. So erreicht das Tool UBITECT im Linux Kernel bei ca. 40Prozent der potenziellen Bugs ein Speicherlimit\cite{liEnhancingStaticAnalysis2024}
+    \item Präzise Analyse: Konzepte wie path-sensitive Analyse bringen eine hohe Präzision, scheitern aber in komplexen Programmen. So erreicht das Tool UBITECT im Linux Kernel bei ca. 40Prozent der potenziellen Bugs ein Speicherlimit \cite{liEnhancingStaticAnalysis2024}
 \item Skalierbare Analyse: Nutzen gröberes Vorgehen um auch komplexe Programme Rechen und Zeiteffizient zu analysieren. Diese leiden aber unter vielen \ac{fp} 
 \end{itemize} 
 
@@ -77,7 +77,7 @@ Der gezielte Einsatz von \acp{llm} kann die Rate an \ac{fp} die die Entwickler e
 
 \subsection{Wissenslücken schließen}
 
-Analysetools können kein vollständiges Wissen über alle Funktionen, Bibliotheken, Sprachmerkmale oder Laufzeitumgebungen eines komplexen Softwaresystems besitzen \cite{liEnhancingStaticAnalysis2024}. Konventionelle Tools sind dafür abhängig von menschlicher Modellierung basierend auf deren Wissen. Dieser Vorgang ist fehleranfällig und kostet Arbeitskraft\cite{liIRISLLMAssistedStatic2024}. Sprachmodelle können durch Trainingsdaten und kontextuelles Verständnis diese Limitation begrenzen und dem statischen Analysetool wichtige Daten bereitstellen\cite{liEnhancingStaticAnalysis2024}. 
+Analysetools können kein vollständiges Wissen über alle Funktionen, Bibliotheken, Sprachmerkmale oder Laufzeitumgebungen eines komplexen Softwaresystems besitzen \cite{liEnhancingStaticAnalysis2024}. Konventionelle Tools sind dafür abhängig von menschlicher Modellierung basierend auf deren Wissen. Dieser Vorgang ist fehleranfällig und kostet Arbeitskraft \cite{liIRISLLMAssistedStatic2024}. Sprachmodelle können durch Trainingsdaten und kontextuelles Verständnis diese Limitation begrenzen und dem statischen Analysetool wichtige Daten bereitstellen \cite{liEnhancingStaticAnalysis2024}. 
 
 
 \section{Umsetzung}
@@ -141,7 +141,7 @@ Das Framework  IRIS demonstriert diesen Ansatz (Abb \ref{fig:pre_processing_patt
 \end{figure}
 
 \subsubsection{Post-Processor - Verarbeitung von Ergebnissen}
-Im Post-Processing-Ansatz wird das Ergebnis eines traditionellen Analysetools durch ein nachgeschaltetes \ac{llm} verfeinert\cite{wagnerEffectiveComplementarySecurity2025}. Das Hauptziel dieser Integration liegt in der Reduktion der \ac{fp}-Meldungen. Dabei ist ein Aufrechterhalten der \ac{TPR} essentiell, um sicherzustellen, dass keine Schwachstellen als harmlos eingestuft werden\cite{wagnerEffectiveComplementarySecurity2025}.
+Im Post-Processing-Ansatz wird das Ergebnis eines traditionellen Analysetools durch ein nachgeschaltetes \ac{llm} verfeinert \cite{wagnerEffectiveComplementarySecurity2025}. Das Hauptziel dieser Integration liegt in der Reduktion der \ac{fp}-Meldungen. Dabei ist ein Aufrechterhalten der \ac{TPR} essentiell, um sicherzustellen, dass keine Schwachstellen als harmlos eingestuft werden \cite{wagnerEffectiveComplementarySecurity2025}.
 
 \begin{figure}
 \centering
@@ -174,7 +174,7 @@ Im Post-Processing-Ansatz wird das Ergebnis eines traditionellen Analysetools du
 \subsubsection{Interleaved Systeme}
 Ein fortschrittliches Muster, bei dem die konventionelle statische Analyse im zusammenspiel mit der \ac{llm} Integration arbeitet. Das ermöglicht es, Blockaden zu überwinden, die für rein formale Methoden zu komplex sind.
 
-\textbf{Ansatz als Fallback-Mechanismus (LLIFT):} Scheitert die präzise Analyse eines Pfades an dessen Komplexität (z.B. Timeout durch Pfadexplosion), wird das LLM als intelligenter Assistent herangezogen, um eine menschenähnliche Analyse des spezifischen, schwer entscheidbaren Falles durchzuführen\cite{khareUnderstandingEffectivenessLarge2024}.
+\textbf{Ansatz als Fallback-Mechanismus (LLIFT):} Scheitert die präzise Analyse eines Pfades an dessen Komplexität (z.B. Timeout durch Pfadexplosion), wird das LLM als intelligenter Assistent herangezogen, um eine menschenähnliche Analyse des spezifischen, schwer entscheidbaren Falles durchzuführen \cite{khareUnderstandingEffectivenessLarge2024}.
 
 \begin{figure}
 \centering
@@ -205,11 +205,11 @@ Ein fortschrittliches Muster, bei dem die konventionelle statische Analyse im zu
 \draw[arrow] (llm) -- (result);
 
 \end{tikzpicture}
-\caption{Eingriff in Analyse(nach LLIFT\cite{khareUnderstandingEffectivenessLarge2024})}
+\caption{Eingriff in Analyse(nach LLIFT \cite{khareUnderstandingEffectivenessLarge2024})}
 \label{fig:pre_processing_pattern}
 \end{figure}
 
-\textbf{Ansatz als iterative Schleife (EESI):} Die statische Analyse übergibt ihre \textit{Zwischenergebnisse} (z.B. bereits bekannte Eigenschaften von aufgerufenen Funktionen) als hochrelevanten Kontext an das LLM. Die Antwort des LLMs wird wiederum als neue Erkenntnis in die laufende statische Analyse zurückgespeist, um deren Präzision zu erhöhen\cite{chapmanInterleavingStaticAnalysis2024}.
+\textbf{Ansatz als iterative Schleife (EESI):} Die statische Analyse übergibt ihre \textit{Zwischenergebnisse} (z.B. bereits bekannte Eigenschaften von aufgerufenen Funktionen) als hochrelevanten Kontext an das LLM. Die Antwort des LLMs wird wiederum als neue Erkenntnis in die laufende statische Analyse zurückgespeist, um deren Präzision zu erhöhen \cite{chapmanInterleavingStaticAnalysis2024}.
 
 
 \subsection{Prompting Strategien}
@@ -233,7 +233,7 @@ Modellparameter wie $max_tokens$ und $temperature$ haben einen entscheidenden Ei
 
 Die Integration von \ac{llm} in den Bereich der statischen Programmanalyse bietet viel Potential, steht jedoch erst am Anfang Ihrer Entwicklung. Aktuelle Forschungsarbeiten in dem Bereich zeigen neben dem Potential auch Limitierungen auf.
 
-\textbf{Fehlender Gesamtkontext:} Die Analyse bezieht sich nur auf bereitgestellte Code-Ausschnitte. Dadurch können Kontextlücken entstehen, welche das Ergebnis beeinflussen\cite{liIRISLLMAssistedStatic2024}.
+\textbf{Fehlender Gesamtkontext:} Die Analyse bezieht sich nur auf bereitgestellte Code-Ausschnitte. Dadurch können Kontextlücken entstehen, welche das Ergebnis beeinflussen \cite{liIRISLLMAssistedStatic2024}.
 
 \textbf{Determinismus} 
 
