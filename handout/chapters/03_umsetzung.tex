@@ -1,0 +1,145 @@
+\section{Umsetzung}
+
+Es existieren verschiedene Integrationspunkte für das \ac{llm} in die statische Programmanalyse. Dies erfolgt nicht monolithisch, sondern durch eine Integration des \ac{llm} an verschiedenen Punkten im Analyseprozess.
+
+
+\subsection{Architektonische Muster der LLM-Integration in die statische Analyse}
+\begin{table}[ht]
+\centering
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X}
+\hline
+\textbf{Muster} & \textbf{Primäres Ziel} & \textbf{Haupteinfluss auf Metriken} \\
+\hline
+Pre-Processing (Spezifikationsgenerierung) & Automatisierte Spezifikationserstellung; Reduktion des manuellen Aufwands & $\uparrow$ Recall, $\uparrow$ Präzision \\
+\hline
+Post-Processing (Ergebnisfilterung) & Reduktion von False Positives (FP) bei Beibehaltung der True-Positive-Rate (TPR) & $\uparrow$ Präzision, TPR bleibt idealerweise konstant \\
+\hline
+Interleaved / Synergistic (Neuro-Symbolisch) & Lösung von Analyseproblemen, die für traditionelle Tools zu komplex sind (z.B. durch Pfadexplosion) & $\uparrow$ Recall (durch Erkennung neuer Fehlerklassen) \\
+\hline
+\end{tabularx}
+\caption{Vergleich der LLM-Integrationsmuster in der statischen Analyse.}
+\label{tab:vergleich_ansaetze}
+\end{table}
+
+\subsubsection{Pre-Processor - Spezifikationsgenerierung}
+Das \ac{llm} kann genutzt werden, um notwendige, aber oft fehlende Spezifikationen die zur eigentlichen konventionellen statischen Analyse notwendig sind zu generieren Dieser Ansatz behebt eine zentrale Schwäche der statischen Taint-Analyse: deren Abhängigkeit von manuellem Labeling von Sources, Sinks und Sanitizern \cite{liIRISLLMAssistedStatic2024}.
+
+Das Framework  IRIS demonstriert diesen Ansatz (Abb \ref{fig:pre_processing_pattern}, indem es ein \ac{llm} nutzt, um API-Kandidaten automatisiert zu klassifizieren und die resultierenden Spezifikationen an ein Analysewerkzeug wie CodeQL zu übergeben.\cite{liIRISLLMAssistedStatic2024}.
+
+\begin{figure}[h]
+\centering
+% Option 3: Kompaktes, zweizeiliges Layout
+\begin{tikzpicture}[
+    node distance = 1.5cm and 3cm, % vertikaler und horizontaler Abstand
+    block/.style = {rectangle, draw, thick, text width=4cm, minimum height=1.5cm, text centered, font=\sffamily},
+    arrow/.style = {-{Stealth[length=3mm]}}
+]
+
+% Nodes anordnen
+\node[block] (code) {Projekt-Quellcode};
+\node[block, below=of code] (extractor) {1. Candidate Extractor (SA)};
+\node[block, right=of extractor] (llm) {2. LLM zur Klassifizierung};
+
+% Zweite Zeile
+\node[block, below=of llm] (taint) {3. Statische Taint-Analyse (z.B. CodeQL)};
+\node[block, below=of taint] (result) {Analyseergebnisse (Gefundene Schwachstellen)};
+
+% Pfeile
+\draw[arrow] (code) -- (extractor);
+\draw[arrow] (extractor) -- node[midway, above] {API-Kandidaten} (llm);
+\draw[arrow] (llm) -- node[midway, right] {Generierte Spezifikationen} (taint);
+\draw[arrow] (taint) -- (result);
+
+% Gestrichelter Pfeil vom Quellcode
+\draw[arrow, dashed] (code.east) to[bend left=20] (taint.north);
+
+\end{tikzpicture}
+\caption{Vereinfachtes Pre-Processing (nach IRIS \cite{liIRISLLMAssistedStatic2024})}
+\label{fig:pre_processing_pattern}
+\end{figure}
+
+\subsubsection{Post-Processor - Verarbeitung von Ergebnissen}
+Im Post-Processing-Ansatz wird das Ergebnis eines traditionellen Analysetools durch ein nachgeschaltetes \ac{llm} verfeinert \cite{wagnerEffectiveComplementarySecurity2025}. Das Hauptziel dieser Integration liegt in der Reduktion der \ac{fp}-Meldungen. Dabei ist ein Aufrechterhalten der \ac{TPR} essentiell, um sicherzustellen, dass keine Schwachstellen als harmlos eingestuft werden \cite{wagnerEffectiveComplementarySecurity2025}.
+
+\begin{figure}
+\centering
+\begin{tikzpicture}[
+    node distance = 2cm,
+    block/.style = {
+        rectangle, 
+        draw, 
+        thick,
+        text width=3cm,
+        minimum height=1.5cm, 
+        text centered,
+        font=\sffamily
+    },
+    arrow/.style = {-{Stealth[length=3mm]}}
+]
+
+\node[block] (sa) {Statische Analyse};
+\node[block, right=of sa] (llm) {LLM-basierte Filterung};
+\node[block, right=of llm] (result) {Gefilterte Ergebnisse};
+
+\draw[arrow] (sa) -- (llm);
+\draw[arrow] (llm) -- (result);
+
+\end{tikzpicture}
+\caption{Vereinfachtes Post-Processing}
+\label{fig:pre_processing_pattern}
+\end{figure}
+
+\subsubsection{Interleaved Systeme}
+Ein fortschrittliches Muster, bei dem die konventionelle statische Analyse im zusammenspiel mit der \ac{llm} Integration arbeitet. Das ermöglicht es, Blockaden zu überwinden, die für rein formale Methoden zu komplex sind.
+
+\textbf{Ansatz als Fallback-Mechanismus (LLIFT):} Scheitert die präzise Analyse eines Pfades an dessen Komplexität (z.B. Timeout durch Pfadexplosion), wird das LLM als intelligenter Assistent herangezogen, um eine menschenähnliche Analyse des spezifischen, schwer entscheidbaren Falles durchzuführen \cite{khareUnderstandingEffectivenessLarge2024}.
+
+\begin{figure}
+\centering
+\begin{tikzpicture}[
+    % Die Abstände können wir beibehalten oder leicht anpassen
+    node distance = 1.5cm and 2cm,
+    block/.style = {
+        rectangle, 
+        draw, 
+        thick,
+        text width=2.5cm,
+        minimum height=1.5cm, 
+        text centered,
+        font=\sffamily
+    },
+    arrow/.style = {-{Stealth[length=3mm]}}
+]
+
+\node[block] (sa) {Statische Analyse};
+\node[block, right=of sa] (se) {Symbolic Execution};
+\node[block, right=of se] (result) {Result};
+\node[block, below=of result] (llm) {LLM Post-processing};
+\draw[arrow] (sa) -- (se);
+\draw[arrow] (se) -- node[above, font=\sffamily\small] {decided} (result);
+
+\draw[arrow] (se.south) to[bend right=45] node[below, pos=0.4, font=\sffamily\small] {undecided cases} (llm.west);
+
+\draw[arrow] (llm) -- (result);
+
+\end{tikzpicture}
+\caption{Eingriff in Analyse(nach LLIFT \cite{khareUnderstandingEffectivenessLarge2024})}
+\label{fig:pre_processing_pattern}
+\end{figure}
+
+\textbf{Ansatz als iterative Schleife (EESI):} Die statische Analyse übergibt ihre \textit{Zwischenergebnisse} (z.B. bereits bekannte Eigenschaften von aufgerufenen Funktionen) als hochrelevanten Kontext an das LLM. Die Antwort des LLMs wird wiederum als neue Erkenntnis in die laufende statische Analyse zurückgespeist, um deren Präzision zu erhöhen \cite{chapmanInterleavingStaticAnalysis2024}.
+
+
+\subsection{Prompting Strategien}
+
+Alle Muster benötigen eine bedachte Prompting-Strategie, um gute Ergebnisse zu erzielen. Dazu gehören unter anderem:
+
+\begin{itemize}
+
+\item Chain-of-Thought: Bringt das Modell dazu, schrittweise zu denken, um Resultate bei komplexen Aufgaben zu verbessern \cite{liEnhancingStaticAnalysis2024}.
+\item Few-Shot-Prompting: Hinzufügen von Beispielen zu einer Prompt welche das  Ergebnis durch \ac{icl} verbessern \cite{khareUnderstandingEffectivenessLarge2024}.
+\item Progressive Prompt: Erlaubt dem LLM zusätzliche Kontextrelevante Informationen bei Bedarf abzufragen, um Token-Einschränkungen zu begrenzen \cite{liEnhancingStaticAnalysis2024}.
+
+\end{itemize}
+
+Modellparameter wie $max_tokens$ und $temperature$ haben einen entscheidenden Einfluss auf die Konsistenz und Qualität der Ergebnisse \cite{wagnerEffectiveComplementarySecurity2025}.

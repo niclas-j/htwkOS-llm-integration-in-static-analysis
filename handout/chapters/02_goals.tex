@@ -1,0 +1,20 @@
+\section{Potenziale und Ziele}\label{sec:potent}
+
+Die Integration von \acp{llm} in die statische Programmanalyse hat das Potenzial, die Schwächen der traditionellen Ansätze zu reduzieren. Der Fokus liegt hierbei nicht auf der Ersetzung bestehender Verfahren, sondern deren Effektivität durch die Kombination mit \acp{llm} zu steigern \cite{khareUnderstandingEffectivenessLarge2024}. Kernbereiche dieser Unterstützung umfassen die direkte Verbesserung der Analyseergebnisse sowie der Kompensation von Wissensdefiziten konventioneller Werkzeuge.
+
+\subsection{Verbesserung der Analyseergebnisse}
+
+Die Ausgabe statischer Analysewerkzeuge neigt dazu, eine hohe Rate an \acfp{fp} zu generieren. Das ist ein großes Problem. Jedes \ac{fp} erfordert eine manuelle Überprüfung und Bindung von Entwicklungsressourcen. Zudem sinkt das Vertrauen in die Werkzeuge durch eine niedrige Precision \cite{wagnerEffectiveComplementarySecurity2025}.
+
+Der gezielte Einsatz von \acp{llm} kann die Rate an \ac{fp} die die Entwickler erreicht reduzieren\cite{wagnerEffectiveComplementarySecurity2025}. Auch die Identifikation komplett neuer Probleme bei denen traditionelle Tools an ihre Grenzen stoßen ist möglich. In großen Codebasen müssen konventionelle Tools einen Trade-Off zwischen Skalierbarkeit und Präzision eingehen.
+
+\begin{itemize}
+    \item Präzise Analyse: Konzepte wie path-sensitive Analyse bringen eine hohe Präzision, scheitern aber in komplexen Programmen. So erreicht das Tool UBITECT im Linux Kernel bei ca. 40Prozent der potenziellen Bugs ein Speicherlimit \cite{liEnhancingStaticAnalysis2024}
+\item Skalierbare Analyse: Nutzen gröberes Vorgehen um auch komplexe Programme Rechen und Zeiteffizient zu analysieren. Diese leiden aber unter vielen \ac{fp} 
+\end{itemize} 
+
+\ac{llm} bieten das Potenzial, durch eine gezielte Integration in der Analysekette die Analyseergebnisse positiv zu beeinflussen\cite{chapmanInterleavingStaticAnalysis2024}.
+
+\subsection{Wissenslücken schließen}
+
+Analysetools können kein vollständiges Wissen über alle Funktionen, Bibliotheken, Sprachmerkmale oder Laufzeitumgebungen eines komplexen Softwaresystems besitzen \cite{liEnhancingStaticAnalysis2024}. Konventionelle Tools sind dafür abhängig von menschlicher Modellierung basierend auf deren Wissen. Dieser Vorgang ist fehleranfällig und kostet Arbeitskraft \cite{liIRISLLMAssistedStatic2024}. Sprachmodelle können durch Trainingsdaten und kontextuelles Verständnis diese Limitation begrenzen und dem statischen Analysetool wichtige Daten bereitstellen \cite{liEnhancingStaticAnalysis2024}. 
