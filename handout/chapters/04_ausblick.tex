@@ -4,16 +4,9 @@
 
 Die Integration von \ac{llm} in den Bereich der statischen Programmanalyse bietet viel Potential, steht jedoch erst am Anfang Ihrer Entwicklung. Aktuelle Forschungsarbeiten in dem Bereich zeigen neben dem Potential auch Limitierungen auf.
 
-\textbf{Fehlender Gesamtkontext:} Die Analyse bezieht sich nur auf bereitgestellte Code-Ausschnitte. Dadurch können Kontextlücken entstehen, welche das Ergebnis beeinflussen \cite{liIRISLLMAssistedStatic2024}.
+Viele Ansätze in dem Gebiet beziehen sich auf konkrete Programmiersprachen und Benchmarks. Während erste Studien auch ungelabelte Daten in Ihre Versuche mit einbeziehen\cite{wagnerEffectiveComplementarySecurity2025}, ist das Feld noch nicht flächendeckend erforscht.  Die Performance von \ac{llm} ist stark abhängig vom bereitgestellten Kontext und dem Prompting\cite{wagnerEffectiveComplementarySecurity2025}.  Deshalb ist es trotz justierter Parameter wie der temperature möglich,  nicht-deterministische Ergebnisse auszuschließen\cite{khareUnderstandingEffectivenessLarge2024}.
 
-\textbf{Determinismus} 
-
-\textbf{Betriebskosten}
-
-\textbf{Studiendesign und Bias}
+Eine weitere Dimension des Einsatzes von \ac{llm} sind die entstandenen Kosten. Bei jedem Aufruf des \ac{llm}, z.B. bei der Spezifikationsgenerierung oder Ergebnisfilterung entstehen Kosten. Diese Skalieren mit der Codebasis und Analysekomplexität\cite{liEnhancingStaticAnalysis2024}. 
 
 \subsection{Zukünftige Forschung}
-
-\textbf{Vertiefung der neuro-symbolischen Integration}
-
-\textbf{Optimierung Modellinteraktion (Multiple Modelle, Prompting, Parametergröße}
+Die Verbindung zwischen dem Analysetool und dem \ac{llm} sollte weiter untersucht und verbessert werden\cite{khareUnderstandingEffectivenessLarge2024}. Zudem sollte weitergehend Untersucht werden, wie die Interaktion mit dem Sprachmodell optimiert werden können. Dabei können verschiedene Parameter untersucht werden, unter anderem die Parametergröße des Modells, um Kosten/Zeit und Effektivität zu maximieren. General Purpose Modelle zeigen bereits vielversprechende Ergebnisse. Dennoch sollten auch Fine-Tuned \acp{llm} sollten im Feld der statischen Analyse untersucht werden\cite{wagnerEffectiveComplementarySecurity2025}.

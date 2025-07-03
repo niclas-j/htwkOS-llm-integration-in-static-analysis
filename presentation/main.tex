@@ -1,0 +1,278 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx} % Required for including images
+
+\usetheme{Madrid}
+\usecolortheme{default}
+
+\usepackage[latin,english,ngerman]{babel}
+\PassOptionsToPackage{% setup clean thesis style
+    figuresep=colon,%
+    hangfigurecaption=false,%
+    hangsection=true,%
+    hangsubsection=true,%
+    sansserif=false,%
+    configurelistings=true,%
+    colorize=full,%
+    colortheme=bluemagenta,%
+    configurebiblatex=true,%
+    bibsys=bibtex,%
+    bibfile=bib-refs,%
+    bibstyle=numeric,%
+    bibsorting=nty,%
+}{cleanthesis}
+\usepackage{cleanthesis}
+3
+
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title[HTWK OS 2025] %optional
+{Verbesserte statische Programm-Analyse durch die Integration von LLM}
+
+\author[N. Jost]{Niclas Jost}
+
+\institute[HTWK Leipzig]{
+    Oberseminar: Innovative Methoden für Software Engineering der Zukunft \\
+    HTWK Leipzig, Sommersemester 2025 \\
+    Dozent: Prof. Dr. Andreas Both
+}
+
+
+\date[07.07.2025]
+{07. Juli 2025}
+
+%End of title page configuration block
+%------------------------------------------------------------
+
+
+
+%------------------------------------------------------------
+%The next block of commands puts the table of contents at the 
+%beginning of each section and highlights the current section:
+
+\AtBeginSection[]
+{
+  \begin{frame}
+    \frametitle{Table of Contents}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+%------------------------------------------------------------
+
+
+\begin{document}
+
+%The next statement creates the title page.
+\begin{frame}
+  \titlepage
+\end{frame}
+
+%---------------------------------------------------------
+%This block of code is for the table of contents after
+%the title page
+\begin{frame}
+\frametitle{Table of Contents}
+\tableofcontents
+\end{frame}
+%---------------------------------------------------------
+
+
+\section{Vision und Motivation}
+
+\begin{frame}
+\frametitle{Ausgangslage: Komplexe Software-Systeme}
+\begin{itemize}
+    [cite_start]\item Moderne Programme weisen eine inhärente Komplexität auf. [cite: 4] \pause
+    [cite_start]\item Es bestehen vielfältige Abhängigkeiten zwischen Bibliotheken, Modulen und externem Code. [cite: 4] \pause
+    [cite_start]\item Daraus resultiert ein hoher Bedarf an zuverlässigen Tools, um die Softwarequalität zu sichern. [cite: 5]
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Vision: Komplementäre Stärken nutzen}
+\begin{itemize}
+    [cite_start]\item Large Language Models (LLMs) zeigen bereits große Erfolge in verwandten Bereichen wie \alert{Program-Repair} [7] und \alert{Code/Test-Generierung} [3]. [cite: 6] \pause
+    \item<2-> \textbf{Ziel:} Die gezielte Integration von LLMs in die statische Analyse.
+    \begin{itemize}
+        [cite_start]\item<2-> Nicht als Ersatz, sondern als \alert{Ergänzung} zu formalen, regelbasierten Ansätzen. [cite: 8, 11]
+        [cite_start]\item<3-> LLMs bringen ein intuitives, "menschenähnliches" Code-Verständnis ein. [cite: 8]
+        [cite_start]\item<3-> Dies ermöglicht es, die jeweiligen Stärken komplementär zu nutzen. [cite: 7]
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\section{Potenziale und Ziele}
+
+\begin{frame}
+\frametitle{Verbesserung der Analyseergebnisse}
+\begin{alertblock}{Das Problem: False-Positives (FP)}
+    [cite_start]Statische Analysewerkzeuge neigen zu einer hohen Rate an False-Positives. [cite: 18] [cite_start]Jeder Fehlalarm bindet Entwicklungsressourcen und senkt das Vertrauen in die Tools. [cite: 19, 20]
+\end{alertblock} \pause
+
+\begin{block}{Potenzial der LLMs}
+    \begin{itemize}
+        [cite_start]\item Gezielter Einsatz von LLMs kann die FP-Rate, die Entwickler erreicht, signifikant reduzieren. [cite: 21] \pause
+        [cite_start]\item Identifikation neuer Probleme, bei denen traditionelle Tools an Grenzen stoßen. [cite: 22]
+    \end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Trade-Off: Skalierbarkeit vs. Präzision}
+[cite_start]Traditionelle Tools müssen einen Kompromiss eingehen: [cite: 23]
+
+\begin{columns}
+\column{0.5\textwidth}
+    \begin{block}{Präzise Analyse}
+        \begin{itemize}
+            \item z.B. [cite_start]\textit{path-sensitive} Analyse. [cite: 24]
+            [cite_start]\item Hohe Präzision, aber scheitert oft an Komplexität. [cite: 24]
+            \item \alert{Beispiel:} Tool UBITECT erreicht bei ca. [cite_start]40\% der Bugs im Linux Kernel ein Speicherlimit. [cite: 25, 26]
+        \end{itemize}
+    \end{block}
+
+\column{0.5\textwidth}
+    \begin{block}{Skalierbare Analyse}
+        \begin{itemize}
+            [cite_start]\item Nutzt gröbere Verfahren für Effizienz. [cite: 26]
+            [cite_start]\item Leidet unter einer hohen Anzahl an False-Positives. [cite: 27]
+        \end{itemize}
+    \end{block}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Wissenslücken konventioneller Tools schließen}
+\begin{itemize}
+    [cite_start]\item Analysetools besitzen kein vollständiges Wissen über alle Bibliotheken, Frameworks oder Sprachmerkmale. [cite: 30] \pause
+    [cite_start]\item Sie sind oft auf manuelle und fehleranfällige Modellierung durch Experten angewiesen. [cite: 31] \pause
+    \item \textbf{Lösung durch LLMs:}
+    \begin{itemize}
+        [cite_start]\item Können durch ihre Trainingsdaten und kontextuelles Verständnis diese Lücken füllen. [cite: 32]
+        [cite_start]\item Stellen dem statischen Analysetool wichtige, bisher fehlende Daten bereit. [cite: 32]
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\section{Architektonische Muster}
+
+\begin{frame}
+\frametitle{Integrationsmuster im Überblick}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{l|l|l}
+\hline
+\textbf{Muster} & \textbf{Primäres Ziel} & \textbf{Haupteinfluss auf Metriken} \\ \hline \hline
+\begin{tabular}[c]{@{}l@{}}Pre-Processing \\ (Spezifikationsgenerierung)\end{tabular} & \begin{tabular}[c]{@{}l@{}}Automatisierte Spezifikationserstellung; \\ Reduktion des manuellen Aufwands\end{tabular} & $\uparrow$ Recall, $\uparrow$ Präzision \\ \hline
+\begin{tabular}[c]{@{}l@{}}Post-Processing \\ (Ergebnisfilterung)\end{tabular} & \begin{tabular}[c]{@{}l@{}}Reduktion von False Positives (FP) bei \\ Beibehaltung der True-Positive-Rate (TPR)\end{tabular} & \begin{tabular}[c]{@{}l@{}}$\uparrow$ Präzision, \\ TPR bleibt idealerweise konstant\end{tabular} \\ \hline
+\begin{tabular}[c]{@{}l@{}}Interleaved / Synergistic \\ (Neuro-Symbolisch)\end{tabular} & \begin{tabular}[c]{@{}l@{}}Lösung von Analyseproblemen, die für \\ traditionelle Tools zu komplex sind \end{tabular} & \begin{tabular}[c]{@{}l@{}}$\uparrow$ Recall (durch Erkennung \\ neuer Fehlerklassen)\end{tabular} \\ \hline
+\end{tabular}%
+}
+\tiny
+\vspace{1em}
+[cite_start]Nach Tabelle 1 aus dem Handout. [cite: 42, 43]
+\end{frame}
+
+\begin{frame}
+\frametitle{Muster 1: Pre-Processing (Spezifikationsgenerierung)}
+\begin{columns}
+\column{0.5\textwidth}
+\begin{itemize}
+    [cite_start]\item Das LLM generiert fehlende Spezifikationen, die für die traditionelle Analyse notwendig sind. [cite: 45]
+    [cite_start]\item \alert{Anwendung:} Behebt zentrale Schwäche der Taint-Analyse: die Abhängigkeit von manuellem Labeling (Sources, Sinks, Sanitizer). [cite: 45]
+    [cite_start]\item \textbf{Beispiel IRIS:} Nutzt ein LLM, um API-Kandidaten zu klassifizieren und übergibt dies an CodeQL. [cite: 46]
+\end{itemize}
+\column{0.5\textwidth}
+\includegraphics[width=\textwidth]{abb1.png}
+[cite_start]\tiny Vereinfachtes Pre-Processing (nach IRIS [5]). [cite: 63]
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Muster 2: Post-Processing (Ergebnisfilterung)}
+\begin{columns}
+\column{0.5\textwidth}
+\begin{itemize}
+    [cite_start]\item Ein nachgeschaltetes LLM verfeinert das Ergebnis eines traditionellen Analysetools. [cite: 48]
+    [cite_start]\item \alert{Hauptziel:} Reduktion der False-Positive-Meldungen. [cite: 49]
+    [cite_start]\item \textbf{Essentiell:} Die True-Positive-Rate (TPR) muss aufrechterhalten werden, um keine echten Fehler zu übersehen. [cite: 49, 50]
+\end{itemize}
+\column{0.5\textwidth}
+\includegraphics[width=\textwidth]{abb2.png}
+[cite_start]\tiny Vereinfachtes Post-Processing. [cite: 67]
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Muster 3: Interleaved Systeme}
+\begin{itemize}
+    [cite_start]\item Fortschrittliches Muster, bei dem konventionelle Analyse und LLM-Integration zusammenspielen. [cite: 69]
+    [cite_start]\item Ermöglicht die Überwindung von Blockaden, die für rein formale Methoden zu komplex sind. [cite: 70]
+\end{itemize}
+\pause
+\begin{block}{Ansätze}
+\begin{itemize}
+    [cite_start]\item \textbf{Fallback (LLIFT):} Scheitert die Analyse an der Komplexität eines Pfades (z.B. Timeout), wird das LLM als "intelligenter Assistent" für diesen Fall herangezogen. [cite: 71]
+    \item \textbf{Iterative Schleife (EESI):} Die statische Analyse übergibt Zwischenergebnisse als Kontext an das LLM. [cite_start]Die Antwort des LLMs wird als neue Erkenntnis zurückgespeist. [cite: 72, 84]
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Interleaved Systeme: Beispiel LLIFT}
+\begin{figure}
+    \includegraphics[width=0.9\textwidth]{abb3.png}
+    [cite_start]\caption{Eingriff in Analyse (nach LLIFT [2]). [cite: 83]}
+\end{figure}
+\begin{itemize}
+    [cite_start]\item Die Symbolische Ausführung entscheidet die meisten Fälle ("decided cases"). [cite: 79]
+    [cite_start]\item Komplexe, unentscheidbare Fälle ("undecided cases") werden an ein LLM zur Nachverarbeitung weitergeleitet. [cite: 81, 82]
+\end{itemize}
+\end{frame}
+
+\section{Ausblick}
+
+\begin{frame}
+\frametitle{Aktuelle Schwächen und Herausforderungen}
+\begin{itemize}
+    [cite_start]\item \textbf{Fehlender Gesamtkontext:} Analysen beziehen sich oft nur auf Code-Ausschnitte, was zu Kontextlücken führen kann. [cite: 99, 100] \pause
+    [cite_start]\item \textbf{Determinismus:} LLM-Ausgaben sind nicht immer deterministisch, was für Analysetools eine Herausforderung darstellt. [cite: 101] \pause
+    [cite_start]\item \textbf{Betriebskosten:} Die Nutzung von LLM-APIs kann erhebliche Kosten verursachen. [cite: 102] \pause
+    [cite_start]\item \textbf{Studiendesign und Bias:} Die Bewertung der Effektivität ist komplex und anfällig für Bias. [cite: 103]
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Zukünftige Forschung}
+\begin{examples}
+Zukünftige Arbeiten sollten sich konzentrieren auf:
+\begin{itemize}
+    [cite_start]\item \textbf{Vertiefung der neuro-symbolischen Integration:} Stärkere Verschränkung von formalen Methoden und neuronalen Netzen. [cite: 105]
+    [cite_start]\item \textbf{Optimierung der Modellinteraktion:} [cite: 106]
+    \begin{itemize}
+        \item Einsatz multipler, spezialisierter Modelle.
+        [cite_start]\item Fortgeschrittene Prompting-Strategien (z.B. Progressive Prompt [cite: 89]).
+        [cite_start]\item Einfluss von Modellparametern wie \texttt{temperature}. [cite: 90]
+    \end{itemize}
+\end{itemize}
+\end{examples}
+\end{frame}
+
+%---------------------------------------------------------
+\begin{frame}
+    \frametitle{Diskussion}
+    \begin{center}
+        \huge
+        Vielen Dank für Ihre Aufmerksamkeit!
+        \vspace{1cm}
+        
+        \Large
+        Fragen?
+    \end{center}
+\end{frame}
+%---------------------------------------------------------
+
+
+\end{document}
